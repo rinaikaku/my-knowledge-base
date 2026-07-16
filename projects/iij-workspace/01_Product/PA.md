@@ -1,40 +1,45 @@
-# PA
+# PA / Prisma Access
 
-## One-Line Positioning
+## 一句话定位
 
-TODO: Summarize PA in one sentence.
+Prisma Access 提供云交付的安全访问和策略控制能力，适合全球或区域性安全标准化场景。
 
-## Suitable Customers
+## 适合客户
 
-- TODO
+- 拥有多个海外子公司或工厂的客户。
+- 需要提升治理能力并标准化安全访问的客户。
+- 将 SASE 纳入全球安全现代化规划的客户。
 
-## Core Value
+## 核心价值
 
-- TODO
+- 提供云交付的安全访问和策略执行。
+- 支持海外治理和分布式站点安全标准化。
 
-## Key Features
+## 关键功能
 
-- TODO
+- SASE / 安全访问架构。
+- 集中策略控制。
+- 根据范围支持远程或分布式站点安全。
 
-## Differentiation
+## 差异化
 
-- TODO
+- 适合较大型的全球或区域标准化项目。
+- 可在评估发现海外安全状态不一致后提出。
 
-## Common Customer Questions
+## 常见客户问题
 
-### TODO: Question
+### 什么时候应推荐 Prisma Access？
 
-Answer:
+回答：当客户需要跨多个国家、站点或远程用户统一访问策略和安全控制，并且现有本地分散方案难以治理时，可以考虑 Prisma Access。
 
-## Proposal-Ready Wording
+## 提案可用话术
 
-- TODO
+- Prisma Access 可帮助海外据点和远程用户统一接入策略，降低各地独立建设带来的安全差异。
 
-## Technical Notes
+## 技术备注
 
-- TODO
+- 设计前需确认目标国家、应用路由、身份集成、中国连接性和运营模型。
 
-## Source Notes
+## 来源备注
 
-- TODO
-
+- 兴和提案来源资料第 48 页将 Prisma Access 作为 SASE 相关实施示例引用。

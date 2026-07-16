@@ -1,22 +1,32 @@
-# IIJ Workspace Knowledge Base
+# IIJ 工作区知识库
 
-This workspace is a Markdown-based knowledge base for product knowledge, FAQ, proposal writing, email drafting, customer profiles, SOPs, AI usage, and compliance paraphrasing.
+本工作区是基于 Markdown 的知识库，用于沉淀产品知识、FAQ、提案话术、邮件草稿、客户档案、SOP、AI 使用方法以及合规表达。
 
-## How to Use
+## 使用方法
 
-- Keep one topic per file.
-- Use clear headings so Codex can find and reuse the right sections.
-- Put customer-sensitive information only in controlled customer notes.
-- Do not store passwords, API keys, private network details, pricing bottom lines, or internal approval secrets.
+- 需要查看完整导航时，从 `99_Index/Main_Index.md` 开始。
+- 如果需要了解 `.md` 知识页的写法和复用方式，请先阅读 `00_StartHere/Markdown_Basics_Guide.md`。
+- 知识库条目默认使用中文。
+- 仅在客户对外日文邮件、日文提案话术、日文原文引用、必须保留的日文术语中使用日文。
+- 仅在产品名、技术术语、文件名、API 名称、已广泛复用的标题或必须保持原文准确性的来源内容中保留英文。
+- 每个文件只记录一个主要主题。
+- 使用清晰的标题，方便 Codex 检索和复用正确段落。
+- 客户敏感信息只放在受控的客户记录中。
+- 不要保存密码、API Key、私有网络细节、价格底线或内部审批秘密。
+- 新增客户材料时，需要区分客户专属事实、可复用提案逻辑、产品/方案知识、FAQ 和合规说明。
+- 将 `06_SOP/Knowledge_Intake_SOP.md` 作为附件、会议记录、邮件、提案材料转换为可复用知识的标准流程。
+- 默认在每项任务结束前判断新信息是否应同步进知识库。
+- 如果任务包含日期、截止时间、会议候选时间、报价有效期、客户回复时间或其他时效性事项，需要在最终回复中明确提醒。
 
-## Main Areas
+## 主要目录
 
-- `01_Product`: product and solution knowledge.
-- `02_FAQ`: reusable Q&A and objection handling.
-- `03_Proposal`: proposal logic, templates, and reusable wording.
-- `04_Email`: Japanese and Chinese email templates.
-- `05_Customer`: customer profile templates and notes.
-- `06_SOP`: repeatable work procedures.
-- `07_AI`: AI use cases, prompts, and work patterns.
-- `08_Compliance`: compliance notes, customer-facing wording, and proposal-ready compliance explanations.
-- `99_Index`: index files for quick navigation.
+- `00_StartHere`：工作区使用指南和基础导航。
+- `01_Product`：产品与解决方案知识。
+- `02_FAQ`：可复用问答和异议处理。
+- `03_Proposal`：提案逻辑、模板和可复用话术。
+- `04_Email`：日文和中文邮件模板。
+- `05_Customer`：客户档案模板和客户记录。
+- `06_SOP`：可重复执行的工作流程。
+- `07_AI`：AI 使用场景、提示词和工作模式。
+- `08_Compliance`：合规说明、客户对外表达和提案可用合规解释。
+- `99_Index`：用于快速导航的索引文件。

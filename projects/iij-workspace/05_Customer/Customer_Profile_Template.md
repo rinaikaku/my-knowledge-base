@@ -1,47 +1,46 @@
-# Customer Profile Template
+# 客户档案模板
 
-## Basic Information
+## 基本信息
 
-- Company:
-- Industry:
-- Location:
-- Key Contacts:
-- Decision Makers:
+- 公司：
+- 行业：
+- 地点：
+- 关键联系人：
+- 决策人：
 
-## Current Environment
+## 当前环境
 
-- Network:
-- Security:
-- Cloud:
-- File Sharing:
-- Operations:
+- 网络：
+- 安全：
+- 云：
+- 文件共享：
+- 运营：
 
-## Business Issues
+## 业务问题
 
-- TODO
+- 待补充。
 
-## Technical Issues
+## 技术问题
 
-- TODO
+- 待补充。
 
-## Budget and Schedule
+## 预算与日程
 
-- Budget:
-- Target Schedule:
+- 预算：
+- 目标日程：
 
-## Proposed Products or Services
+## 建议产品或服务
 
-- TODO
+- 待补充。
 
-## Communication History
+## 沟通历史
 
-- TODO
+- 待补充。
 
-## Next Actions
+## 下一步行动
 
-- TODO
+- 待补充。
 
-## Sensitive Information Handling
+## 敏感信息处理
 
-Do not store passwords, private keys, detailed internal network credentials, confidential pricing bottom lines, or personal data that is not required for proposal work.
-
+不要保存密码、私钥、详细内部网络凭据、机密价格底线，或提案工作不需要的个人数据。

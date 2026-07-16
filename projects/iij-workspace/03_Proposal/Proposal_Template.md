@@ -1,38 +1,37 @@
-# Proposal Template
+# 提案模板
 
-## Customer Background
+## 客户背景
 
-TODO
+待补充。
 
-## Current Issues
+## 当前问题
 
-TODO
+待补充。
 
-## Proposal Goal
+## 提案目标
 
-TODO
+待补充。
 
-## Recommended Solution
+## 推荐方案
 
-TODO
+待补充。
 
-## Value to Customer
+## 对客户的价值
 
-- TODO
+- 待补充。
 
-## Implementation Scope
+## 实施范围
 
-TODO
+待补充。
 
-## Schedule
+## 日程
 
-TODO
+待补充。
 
-## Risks and Assumptions
+## 风险与假设
 
-- TODO
+- 待补充。
 
-## Next Action
+## 下一步行动
 
-TODO
-
+待补充。

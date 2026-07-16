@@ -1,40 +1,48 @@
-# Project Progress SOP
+# 项目推进标准作业流程
 
-## Purpose
+## 目的
 
-TODO: Define when to use this SOP.
+使用本 SOP 将客户机会从初步理解推进到提案、跟进和下一步行动管理。
 
-## Standard Flow
+## 标准流程
 
-1. Confirm customer background.
-2. Clarify business issues.
-3. Clarify technical constraints.
-4. Map issues to candidate solutions.
-5. Prepare proposal logic.
-6. Review risks and assumptions.
-7. Submit proposal.
-8. Follow up and track next action.
+1. 确认客户背景。
+2. 澄清业务问题。
+3. 澄清技术限制。
+4. 将问题映射到候选方案。
+5. 准备提案逻辑。
+6. 复核风险和假设。
+7. 提交提案。
+8. 跟进并记录下一步行动。
 
-## Required Inputs
+## 必要输入
 
-- Customer profile
-- Meeting notes
-- Product candidates
-- Budget or schedule constraints
-- Decision criteria
+- 客户档案。
+- 会议记录。
+- 候选产品。
+- 预算或日程限制。
+- 决策标准。
 
-## Output Artifacts
+## 输出物
 
-- Proposal outline
-- Customer-facing proposal
-- Follow-up email
-- Action list
+- 提案大纲。
+- 面向客户的提案。
+- 跟进邮件。
+- 行动清单。
 
-## Checkpoints
+## 检查点
 
-- TODO
+- 客户背景足够清晰，避免写成泛泛而谈的提案。
+- 业务问题、技术问题和决策标准已分开整理。
+- 候选产品已映射到客户问题，而不是孤立罗列产品。
+- 价格底线、凭据、私有网络信息等敏感细节没有放入可复用文件。
+- 合规、法律、价格和产品规格相关表述在客户交付前已验证。
+- 经验教训和可复用逻辑已通过 `Knowledge_Intake_SOP.md` 回写知识库。
 
-## Escalation Conditions
+## 升级条件
 
-- TODO
-
+- 客户要求超出已批准话术的法律、合规或合同承诺。
+- 客户要求变更生产网络、进行侵入式测试，或在没有书面授权的情况下进行安全评估。
+- 提案依赖近期未确认的法规、认证、产品规格或价格信息。
+- 范围、用户数、设备数、站点数、支持时间或交付责任不清晰。
+- 内部成本、价格底线或审批条件需要经理确认。

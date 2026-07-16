@@ -1,0 +1,238 @@
+{
+  "context_id": "Context-ID-20260706-千寿制药",
+  "last_updated": "2026-07-14",
+  "client_profile": {
+    "client_name": "千寿制药",
+    "region": "中国法人/中国拠点。日本千寿制药与IIJ日本经由推进。",
+    "industry": "制药/医药",
+    "known_sites": [
+      "上海",
+      "苏州",
+      "大连",
+      "天津"
+    ],
+    "current_it_state": {
+      "ai_tools": "中国国内 Microsoft Teams Copilot 利用受限，因此讨论替代 AI 翻译/会议支援工具。",
+      "pc_operations": "中国拠点约 50 台 PC，存在端末运用支援、远程/现场支持与窗口一本化需求。",
+      "mail_system": "现状使用 Alibaba Mail。对象约 44 个账号、约 54 台 PC。大连拠点使用 Foxmail，其他拠点使用 Outlook。"
+    }
+  },
+  "meeting_records": [
+    {
+      "meeting_date": "2026-07-08",
+      "date_note": "会议资料由声音提取生成，用户已更正会议日期为 2026-07-08。",
+      "source_material_folder": "D:\\BaiduSyncdisk\\【20240912】千寿制药\\20260708 千寿日本会议资料准备\\20260707提出用资料\\0708",
+      "source_files": [
+        "千寿製薬様向け＿生成AIについて20260708（提出バージョン）.pptx",
+        "千寿製薬様向け＿運用やメール移行20260708（提出バージョン）.pptx"
+      ],
+      "participants_mentioned": [
+        "大田様（千寿制药日本 情报系统部门）",
+        "川井様（千寿制药日本 情报系统部门）",
+        "郭様",
+        "IIJ日本/弊社相关人员"
+      ],
+      "main_topics": [
+        "中国拠点向けAI翻译/会议支援工具评估",
+        "PC端末运用支援/エンドポイント管理再构筑",
+        "Alibaba MailからMicrosoft 365へのメール移行",
+        "中国元建て現地契約を前提とした推进"
+      ]
+    }
+  ],
+  "key_stakeholders": {
+    "senju_china_general_manager": "川松様",
+    "senju_japan_it_contacts": [
+      "大田様",
+      "川井様"
+    ],
+    "stakeholder_note": "川松様是千寿制药中国总经理。会后郭様已向川松様汇报会议内容。"
+  },
+  "post_meeting_followup": {
+    "followup_date": "2026-07-08",
+    "reported_to": "川松様（千寿制药中国总经理）",
+    "reported_by": "郭様",
+    "summary_shared": [
+      "AI相关：说明了面向日中社内会议和日常沟通的实时字幕、议事录作成 AI 翻译功能；同时介绍文档翻译与合同内容确认支援功能，计划提供试用。",
+      "PC运用支持：建议将中国全体 PC 相关咨询窗口统一到 IIJ（中国），提供软件/硬件两方面的远程与现场支持。",
+      "M365邮件迁移：计划从 Alibaba Mail 迁移到 M365（中国版），对象约 44 账号；按各拠点顺次实施，每拠点约 2 个营业日。",
+      "Foxmail用户：迁移后仍需保留旧 Foxmail 作为过去邮件参照用，需个别对应。",
+      "后续推进：千寿内部确认后进入下一步。"
+    ],
+    "customer_response": [
+      "现地侧对提案完全没有异议。",
+      "主要问题在日本本社侧。",
+      "川松様指出本社窗口可能是总务部的信息系统组，该部门偏系统运用对应，不一定具备 IT 战略/DX 推进视角，这一点令人担心。",
+      "郭様补充说明：会议气氛上，日本侧看起来有前向検討的可能。",
+      "川松様确认另一名参会者应为川井様。"
+    ],
+    "sales_implication": "中国现地侧支持度较高，后续关键在于日本本社情报系统部门是否能从运用视角上升到业务/DX价值判断；提案材料需要同时覆盖运用稳定性、治理、风险降低和阶段性试用，避免只用战略化表达。"
+  },
+  "confirmed_customer_topics": {
+    "ai_translation_tool": {
+      "business_context": "中国国内 Teams Copilot 利用受限，需要补完实时沟通与会议知识化能力。",
+      "confirmed_points": [
+        "工具当前需以スタンドアロン方式在 PC 上个别启动；Teams/Zoom 直接集成仍在开发中。",
+        "实时显示阶段因预测处理，精度可能低于最终文本；会议结束后 AI 再分析修正可提高最终精度。",
+        "支持 Office、Markdown、HTML、PDF 翻译；PDF token 消费较高，需要成本管理。",
+        "支持从再分析文本自动抽取 ToDo。",
+        "一个账号可登记多个声纹，但 50 人规模登记方式与声纹共享可否仍需确认。"
+      ],
+      "poc_plan": {
+        "scope": "全法人共通 1 个账号，顺次利用，不支持同时利用。",
+        "duration": "2 周；视情况最多可协调再延长 2 周。",
+        "purpose": "验证实际业务会议中的翻译精度可接受范围与操作性。",
+        "next_action": "试用账号发行手续。担当：郭様。期限：近日中。"
+      }
+    },
+    "pc_endpoint_support": {
+      "business_context": "约 50 台 PC 的故障切分不应依赖用户个人能力和时间，需要统一窗口与组织化保守体制。",
+      "confirmed_scope": [
+        "远程支持：远程操作进行软件故障切分与解决。",
+        "厂商联系代行：作为一次窗口代替用户联系 PC 厂商等。",
+        "现场支持：难以远程解决时，按 ticket 制派遣技术人员至现场；包含大连、天津等远隔地。",
+        "月度运用报告：可视化故障趋势并推动持续改善。"
+      ],
+      "value_points": [
+        "降低现场用户处理 IT 问题的负担。",
+        "通过月报从临时修理转向计划性设备投资与基础设施优化。"
+      ]
+    },
+    "mail_migration_to_m365": {
+      "business_context": "通过邮件系统统一，提升全球信息共享顺畅度与安全治理一致性。",
+      "current_scope": {
+        "accounts": "约 44 个账号",
+        "pcs": "约 54 台 PC",
+        "current_mail": "Alibaba Mail",
+        "client_apps": "大连使用 Foxmail，其他拠点使用 Outlook"
+      },
+      "technical_risks": [
+        "Foxmail 用户迁移后仍可能需要旧环境参照历史数据。",
+        "域名由外部 vendor 管理，DNS 切换需要 vendor 配合，存在日程延迟风险。",
+        "若由弊社购买 Microsoft 365 license，可将账号创建/删除等运用保守代行纳入提案。"
+      ],
+      "draft_schedule": [
+        "服务器侧设定约 1 周：tenant 设置、domain 认证、license 分配。",
+        "拠点别 onsite 作业每拠点约 2 个营业日；上海/苏州可能缩短，大连/天津按移动距离与人数各 2 个营业日估算。"
+      ]
+    }
+  },
+  "internal_reference_only": {
+    "rag_implementation_issues": {
+      "status": "我司内部售前参考资料，不是客户已确认要件。",
+      "proper_usage": "仅用于准备客户访谈、识别可能风险点、形成确认清单。",
+      "do_not_state_as_customer_problem": [
+        "不得写成客户已经存在 RAG 检索精度、权限控制、更新管理等问题。",
+        "不得写成客户已经明确要求 RAG 建设。",
+        "不得把内部资料中的 RAG 课题直接作为客户痛点。"
+      ],
+      "recommended_wording": "基于我司内部资料，RAG 落地时通常需要关注若干技术与运营课题；后续需结合贵司中国法人实际场景确认是否适用。"
+    }
+  },
+  "commercial_and_contract_assumptions": {
+    "contract_currency": "中国元建て/中国本地合同为前提。",
+    "ai_tool_pricing_to_prepare": [
+      "基本 5 账号单位构成。",
+      "按利用量补充 prepaid 方式：1 个月有效，可追加 charge，token 单位从数百到数百万不等。"
+    ]
+  },
+  "open_questions": [
+    "AI 工具的正式产品名、供应商、数据处理位置与合规边界。",
+    "Teams/Zoom 集成功能预计完成时间。",
+    "声纹数据是否可在 group 内共享，是否需要每个账号重复登记。",
+    "AI POC 的评价标准：实时翻译、最终纪要、ToDo 抽取、文件翻译分别如何判定合格。",
+    "POC 账号是否覆盖所有法人，实际试用人员名单与会议类型。",
+    "PC 支持的 ticket 单价、SLA、远隔地 onsite 交通/派遣费用边界。",
+    "M365 邮件迁移的 DNS vendor 窗口、切换时间、回退方案与历史邮件保留要求。",
+    "Microsoft 365 license 采购主体、license 类型、账号运用代行范围。",
+    "日本本社总务部信息系统组的决策权限、预算权限及是否需要其他 DX/经营企划相关部门参与。",
+    "川松様侧希望日本本社确认的具体事项、优先顺序和期望回复期限。"
+  ],
+  "next_actions": [
+    {
+      "action": "发行 AI 工具 trial 用 1 个账号",
+      "owner": "郭様",
+      "due": "近日中"
+    },
+    {
+      "action": "准备 AI 工具详细报价：5 账号单位与 prepaid token 方式",
+      "owner": "弊社",
+      "due": "未定"
+    },
+    {
+      "action": "协调面向森様及海外事業部的追加 demo",
+      "owner": "カマ様",
+      "due": "未定"
+    },
+    {
+      "action": "整理 PC 运用支援与 M365 邮件迁移的详细见积前提",
+      "owner": "弊社",
+      "due": "未定"
+    }
+  ],
+  "quotation_reference_20260714": {
+    "reference_date": "2026-07-14",
+    "reference_status": "内部历史报价参考。可用于后续售前估算、方案测算和报价准备；并非当前有效报价或客户已接受价格，实际对外报价须重新核算并确认。",
+    "currency_and_tax": "RMB；除特别说明外，按源报价表标注为含税价格记录。",
+    "source_files": [
+      "D:\\Codex\\sandbox\\20270714senjyu\\【千寿製薬様】御見積書_20260714(AI）.xlsx",
+      "D:\\Codex\\sandbox\\20270714senjyu\\【千寿製薬様】御見積書_20260714(保守）.xlsx",
+      "D:\\Codex\\sandbox\\20270714senjyu\\【千寿製薬様】御見積書_20260714(邮件）.xlsx"
+    ],
+    "ai_service": {
+      "quantity_basis": "45 用户；最小合同单位为 5 用户。",
+      "option_1_standard_package": {
+        "scope": "企业 Standard 套餐，含 AI 任务、会议语音、知识/培训、PPT/文档、文档/文本翻译、法务/合规等功能；3,000K Tokens/用户/月。",
+        "monthly_license_rmb": 9000,
+        "monthly_support_rmb": 1500,
+        "monthly_total_rmb": 10500,
+        "one_time_initial_rmb": 76000,
+        "one_time_initial_breakdown_rmb": { "初期设置": 20000, "导入实施": 40000, "项目管理": 16000 },
+        "optional_shared_token_pack_rmb": 800,
+        "optional_shared_token_pack_scope": "10,000K Tokens/年，全账号共享，有效期 1 年。"
+      },
+      "option_2_module_package": {
+        "scope": "任务、文档/文本翻译、PPT/文档、法务/合规模块各 85 RMB/用户/月；会议语音模块 135 RMB/用户/月；各模块 1,000K Tokens/用户/月。",
+        "monthly_license_rmb": 21375,
+        "monthly_support_rmb": 1500,
+        "monthly_total_rmb": 22875,
+        "one_time_initial_rmb": 76000,
+        "optional_shared_token_pack_rmb": 800
+      },
+      "support_scope": "GSCN 工作日 9:00-17:00，电话/邮件/远程；各据点代表人作为受理窗口，提供一次受理、故障切分及向厂商升级。"
+    },
+    "pc_operations_support": {
+      "scope": "上海、泰州、北京、苏州四据点，合计最多 60 台 PC。",
+      "annual_remote_support_rmb": 90000,
+      "annual_onsite_support_rmb": 10000,
+      "annual_total_rmb": 100000,
+      "calculation_basis": "远程 7,500 RMB/月 x 12；现场 2,500 RMB/次 x 4。",
+      "optional_unit_prices_rmb": { "Lenovo_PC": 6000, "Windows_11_Professional_GGWA": 2000, "PC_initial_setup_per_device": 1100 },
+      "service_boundary": "工作日 9:00-17:00；设备须已加入厂商保修。对设备固有问题或个别应用故障原则上不在支持范围内。"
+    },
+    "m365_mail_migration": {
+      "license": { "product": "Microsoft 365 Business Standard（21Vianet 中国区）", "quantity": 50, "unit_price_rmb_per_user_year": 1090, "annual_license_total_rmb": 54500 },
+      "one_time_work_rmb": { "mail_platform_setup": 12000, "Shanghai_PC_setup": 8000, "Taizhou_PC_setup": 21400, "Suzhou_PC_setup": 7600, "Beijing_PC_setup": 22400, "project_management": 20000, "total_excluding_license": 91400, "total_including_first_year_license": 145900 },
+      "annual_operation_support_rmb": 24000,
+      "operation_support_scope": "上海、泰州、北京、苏州四据点，最多 55 名用户；工作日 9:00-17:00，电话/邮件/远程支持。新增邮箱的初始设置不在该年度服务范围内。",
+      "commercial_conditions": [
+        "域名 senju-cn.com 从既有供应商迁移至 IIJ 中国；迁移方式待与既有供应商确认，域名使用费另计。",
+        "Foxmail 中历史邮件继续通过 Foxmail 查阅；迁移数据须由客户自行备份，迁移时可能有约 2 小时无法使用邮件。",
+        "现场作业按工作日白天实施；报价表说明上海以外据点已含往返旅费。"
+      ]
+    },
+    "source_quality_and_exclusions": [
+      "源文件存在 #REF! 总额公式，数据库总额均按可核算明细重新计算，不使用失效公式结果。",
+      "部分 AI/保守表保留了兴和制药、邮件管理等旧模板文字；与千寿当前项目无直接对应关系的 PM 作业、年度邮件维护等行未计入 AI/PC 报价参考。",
+      "邮件报价上海 PC 作业行的单价列为 4,800 RMB、合计列为 8,000 RMB；本记录按合计列 8,000 RMB 计入，并列为对外报价前必确认差异。",
+      "PC 与邮件报价中的据点为上海、泰州、北京、苏州，与既有项目记录中的大连、天津不一致；本次仅作为报价文件中的适用范围保存，实际实施据点待确认。",
+      "报价表内的模板日期和客户信息存在旧值；本次参考日期以用户提供目录及文件名中的 2026-07-14 为准。"
+    ]
+  },
+  "project_status": {
+    "current_stage": "说明会后售前推进/POC与详细见积准备",
+    "material_maturity": "AI工具、PC运用支援、邮件迁移三条线已形成会议级讨论；中国现地侧态度积极且无明显异议，但日本本社情报系统部门偏运用视角，仍需确认产品、价格、SLA、合规、迁移技术细节、POC评价标准及本社决策路径。",
+    "recommended_next_skill": "structure-data-modeling-agent",
+    "recommendation_reason": "客户会议后已出现明确的三条工作流和行动项，下一步应整理为提案/见积前提结构与任务模型。"
+  }
+}

@@ -1,49 +1,106 @@
 # AI
 
-## Purpose
+## 目的
 
-Use this file to collect practical AI use cases, prompt patterns, and review workflows for sales, proposal, email, research, and internal documentation work.
+本文件用于沉淀销售、提案、邮件、调研和内部文档工作中可复用的 AI 使用场景、提示词模式、审核规则和客户沟通知识。
 
-## High-Frequency Use Cases
+## 知识条目
 
-- Proposal outline generation
-- Customer issue summarization
-- Japanese email drafting
-- Product comparison
-- FAQ generation
-- Meeting note cleanup
-- Compliance wording paraphrase
+- [企业 AI 架构指南](Enterprise_AI_Architecture_Guide.md)：企业 AI 项目架构、API 基础、RAG、Token、AI Agent、幻觉控制、部署策略、治理和提案常见误区。
+- [PaaS AI 平台数据边界指南](PaaS_AI_Platform_Data_Boundary_Guide.md)：PaaS AI 平台中客户数据、AI 应用平台、外部 LLM 供应商、数据最小化和治理检查的责任边界。
+- [RAG 与检索术语指南](RAG_Retrieval_Terminology_Guide.md)：RAG、向量搜索、Text2SQL、VQA、Webhook、Embedding、Chunking、Rerank、HyDE、Agent、Fine-tuning 和 Graph RAG 的通俗说明。
+- [AI 与 RAG 客户提案话术](../03_Proposal/AI_RAG_Customer_Proposal_Wording.md)：企业 AI、RAG、API 集成、私有化部署、治理和提案结构的中日双语客户话术。
 
-## Reusable Prompt Patterns
+## 高频使用场景
 
-### Proposal Logic
+- 提案大纲生成
+- 客户问题总结
+- 日文商务邮件起草
+- 产品和方案比较
+- FAQ 生成
+- 会议纪要整理
+- 合规表述改写
+- 从客户材料录入知识库
+- 相似客户案例复用
 
-```text
-TODO
-```
+## 可复用提示词模板
 
-### Japanese Business Email
-
-```text
-TODO
-```
-
-### Product Comparison
+### 提案逻辑
 
 ```text
-TODO
+客户：[客户名称]
+行业：[行业]
+当前材料：[客户背景、会议纪要、提案片段]
+目标：[提案目标或下一步沟通目标]
+
+请基于已知信息整理：
+1. 客户背景和主要痛点
+2. 推荐方案方向
+3. 分阶段提案或实施路径
+4. 可直接复用的客户说明文字
+5. 仍需向客户确认的问题
+6. 对外交付前需要检查的风险或假设
 ```
 
-### Executive Summary
+### 日文商务邮件
 
 ```text
-TODO
+客户：[客户名称]
+场景：[跟进 / 会议邀请 / 提案提交 / 问题回答 / 感谢回复]
+语气：正式、简洁、重视关系维护
+参考信息：[客户文档、提案内容、产品说明]
+
+请仅基于已知信息起草一封日文商务邮件。
+不要写入未确认的结论、价格承诺或内部判断。
+如有需要人工确认的内容，请放在邮件正文之外单独标注。
 ```
 
-## Review Rules
+### 产品比较
 
-- Verify facts against source documents before customer delivery.
-- Do not expose customer-sensitive data in public AI tools.
-- Mark assumptions clearly.
-- Review legal, compliance, and pricing language before sending externally.
+```text
+比较对象：[产品 A] vs [产品 B]
+客户场景：[行业、地区、现有环境、痛点]
+评价维度：安全性、成本、运维、中国可用性、总部治理、集成性
 
+请生成对比表，说明适用条件和限制，并给出推荐结论。
+价格、支持范围等可变信息请标记为需要最新确认。
+```
+
+### 管理层摘要
+
+```text
+客户：[客户名称]
+材料：[会议纪要或来源文档]
+读者：[客户管理层 / 日本总部 / 内部上级]
+目的：[决策 / 风险说明 / 项目进展]
+
+请写一页以内的执行摘要，包括背景、当前问题、推荐方向、分阶段行动、业务价值和下一步。
+```
+
+### 知识库录入
+
+```text
+客户：[客户名称]
+内容类型：[客户 / 产品 / FAQ / 提案 / 邮件 / SOP / AI / 合规 / 不确定]
+来源材料：[附件、转写、会议纪要、原文]
+
+请根据 `06_SOP/Knowledge_Intake_SOP.md` 更新知识库：
+1. 客户特有事实写入 `05_Customer`。
+2. 可复用提案逻辑写入 `03_Proposal`。
+3. 产品或方案知识写入 `01_Product`。
+4. 可复用客户问题写入 `02_FAQ`。
+5. 合规、认证、法规相关内容写入 `08_Compliance`。
+6. 导航变化同步更新 `99_Index`。
+7. 不要存储密码、账号密钥、价格底线或内部审批机密。
+```
+
+## 审核规则
+
+- 对外交付前，必须根据来源文档核对事实。
+- 不要在公共 AI 工具中暴露客户敏感信息。
+- 明确标注假设，不要把推测写成事实。
+- 法律、合规和价格相关表述需要额外复核。
+- 最新法律、认证、产品规格、支持范围、部署可用性和价格，需要以官方或厂商最新来源为准。
+- 从提案或客户材料抽取内容时，应保留来源映射，方便后续追溯。
+- 每次任务结束前，判断新信息是否有复用价值；有价值时同步进知识库。
+- 如果任务包含日期、期限、会议候选、报价有效期、客户回复时间、续约日期或项目里程碑，最终回复中需要明确提示跟进时间。

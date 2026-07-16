@@ -1,62 +1,72 @@
-# Compliance
+# 合规知识库
 
-## Purpose
+## 目的
 
-Use this file to collect compliance-related explanations, customer-facing wording, proposal notes, and risk statements.
+本文件用于收集合规相关解释、客户对外话术、提案备注和风险表述。
 
-## Usage Rules
+## 使用规则
 
-- Preserve the original compliance meaning.
-- Do not weaken obligations, restrictions, or risk statements.
-- Avoid adding commitments that were not approved.
-- Keep source text and final wording together for traceability when needed.
-- Review legal, security, and contractual wording before external delivery.
+- 保留原始合规含义。
+- 不弱化义务、限制或风险表述。
+- 不增加未经批准的承诺。
+- 必要时将来源文字和最终话术放在一起，便于追溯。
+- 对外交付前复核法律、安全和合同措辞。
 
-## Template
+## 模板
 
-### Topic
+### 主题
 
-TODO
+待补充。
 
-### Source Text or Requirement
-
-```text
-TODO
-```
-
-### Customer-Facing Wording
+### 来源文本或要求
 
 ```text
-TODO
+待补充。
 ```
 
-### Notes
+### 客户对外话术
 
-- TODO
+```text
+待补充。
+```
 
-## Common Topics
+### 备注
 
-### Data Protection
+- 待补充。
 
-TODO
+## 常见主题
 
-### Access Control
+### 数据保护
 
-TODO
+待补充。
 
-### Audit and Logging
+### 访问控制
 
-TODO
+待补充。
 
-### Data Residency
+### 审计与日志
 
-TODO
+待补充。
 
-### Incident Response
+### 数据驻留
 
-TODO
+#### 中国法人数据备份到海外 Region
 
-### Vendor Responsibility
+- 场景：客户或日本侧询问是否可将中国法人实际使用的数据备份到中国以外 Region，例如日本 Region。
+- 风险边界：该问题可能涉及数据出境、个人信息保护、重要数据识别、合同责任、客户授权、厂商数据驻留能力、备份恢复路径和运维访问边界。
+- 处理原则：不得仅按网络访问质量、POP 节点或海外访问加速问题处理；应先确认“Region”是否指数据保存地或备份保存地。
+- 对外答复前需确认：
+  - 数据类型：是否包含个人信息、敏感个人信息、重要数据、业务秘密或公共机构相关敏感资料。
+  - 数据流向：中国到日本的备份、复制、恢复、日志、管理面和运维访问路径。
+  - 产品能力：厂商是否支持指定备份 Region、是否支持中国数据备份到日本、恢复时数据是否回流中国。
+  - 合同边界：报价范围、SLA、厂商支持范围、GSCN/IIJ日本/客户各方责任。
+  - 客户授权：实际服务使用者和日本侧客户是否明确接受跨境备份安排。
+- 推荐内部标注：在厂商和合规边界确认前，标记为“待确认：产品能力 + 数据越境风险”，不得对客户承诺可支持。
 
-TODO
+### 事件响应
 
+待补充。
+
+### 供应商责任
+
+待补充。

@@ -1,40 +1,39 @@
 # Box
 
-## One-Line Positioning
+## 一句话定位
 
-TODO: Summarize Box in one sentence.
+待补充：用一句话概括 Box 的定位。
 
-## Suitable Customers
+## 适合客户
 
-- TODO
+- 待补充。
 
-## Core Value
+## 核心价值
 
-- TODO
+- 待补充。
 
-## Key Features
+## 关键功能
 
-- TODO
+- 待补充。
 
-## Differentiation
+## 差异化
 
-- TODO
+- 待补充。
 
-## Common Customer Questions
+## 常见客户问题
 
-### TODO: Question
+### 待补充：问题
 
-Answer:
+回答：
 
-## Proposal-Ready Wording
+## 提案可用话术
 
-- TODO
+- 待补充。
 
-## Technical Notes
+## 技术备注
 
-- TODO
+- 待补充。
 
-## Source Notes
+## 来源备注
 
-- TODO
-
+- 待补充。

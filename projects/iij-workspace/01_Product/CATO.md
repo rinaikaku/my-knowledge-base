@@ -1,40 +1,45 @@
 # CATO
 
-## One-Line Positioning
+## 一句话定位
 
-TODO: Summarize CATO in one sentence.
+Cato Cloud 是一种 SASE 平台选项，适合需要在多个海外据点统一网络和安全控制的客户。
 
-## Suitable Customers
+## 适合客户
 
-- TODO
+- 拥有多个海外据点且需要标准化安全策略的客户。
+- 在站点评估或网络/安全现代化之后考虑 SASE 的客户。
+- 需要改善海外治理和远程连接能力的客户。
 
-## Core Value
+## 核心价值
 
-- TODO
+- 以云交付的 SASE 模式整合网络连接和安全功能。
+- 帮助标准化海外据点访问和安全控制。
 
-## Key Features
+## 关键功能
 
-- TODO
+- SASE 架构。
+- 站点连接和安全访问。
+- 根据范围提供集中策略和运营能力。
 
-## Differentiation
+## 差异化
 
-- TODO
+- 适合多个国家/地区部署且各地条件差异较大的场景。
+- 可在现状评估后作为更高成熟度选项提出。
 
-## Common Customer Questions
+## 常见客户问题
 
-### TODO: Question
+### 什么时候应考虑 Cato Cloud？
 
-Answer:
+回答：当客户需要跨多个据点统一网络和安全控制，尤其是评估发现各地分散控制难以治理时，可以考虑 Cato Cloud。
 
-## Proposal-Ready Wording
+## 提案可用话术
 
-- TODO
+- 通过 Cato Cloud，可以整合海外据点的网络连接与安全控制，降低各据点独立建设造成的治理差异。
 
-## Technical Notes
+## 技术备注
 
-- TODO
+- 提案前需确认中国访问、站点数量、流量模式、应用需求和本地监管限制。
 
-## Source Notes
+## 来源备注
 
-- TODO
-
+- 兴和提案来源资料第 48 页将 Cato Cloud 作为 SASE 实施示例引用。
