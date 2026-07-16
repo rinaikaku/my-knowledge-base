@@ -10,3 +10,4 @@
 - 对每个同步项目，先确认并记录“实际源目录 → 仓库目标目录”映射；不得仅根据截图、历史路径或目录名称推断来源。当前 IIJ Workspace 的已确认映射为 `D:\IIJ-Workspace → projects/iij-workspace/`。
 - 宣称同步完成前必须完成四阶段验收：源目录文件清单、Git 暂存/跟踪状态、远端分支提交、以及副机拉取后的关键文件清单。`git push` 成功只证明已提交内容抵达远端，不能证明来源完整。
 - 对关键文件至少执行 `git status --short --untracked-files=all -- <目标目录>`、`git ls-files -- <目标目录>` 和 `git check-ignore -v -- <关键文件>`；远端地址必须通过 `git remote -v` 确认后再推送。
+- 当用户说“推送远端”时：先执行 `git pull --rebase`，检查 `git diff` 与敏感信息，再提交并推送当前机器中可版本化的项目、规则和配置更新；必须排除 `outputs/`、`work/`、密钥、令牌、账号会话及本机缓存。
