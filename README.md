@@ -20,7 +20,7 @@ git commit -m "docs: 更新知识库"
 git push
 ```
 
-远端仓库创建并绑定前，`git push` 不可用；本地提交仍会保留完整历史。
+本项目的远端仓库是 `rinaikaku/my-knowledge-base`，并使用 SSH-over-443 连接，以适配当前网络环境。首次推送前，需要将本机 SSH 公钥添加到 GitHub。
 
 ## 安全边界
 

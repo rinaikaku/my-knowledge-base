@@ -1,6 +1,6 @@
 # 副机接入与同步指南
 
-本指南假定主机已创建一个私有 GitHub 仓库，并已将本机项目推送到该仓库。
+本指南使用私有 GitHub 仓库 `rinaikaku/my-knowledge-base`。由于当前网络到 `github.com` 的 HTTPS 路由不稳定，主机与副机统一使用 GitHub 官方支持的 SSH-over-443 连接。
 
 ## 一次性准备
 
@@ -12,13 +12,13 @@
    git config --global user.email "你的邮箱"
    ```
 
-2. 使用有仓库访问权限的 GitHub 账号登录；建议使用 SSH 密钥或 Git Credential Manager，避免在命令行保存明文密码。
+2. 使用有仓库访问权限的 GitHub 账号，并在该副机生成独立 SSH 密钥、将公钥添加到 GitHub。不要在命令行保存明文密码或复制主机私钥。
 
 3. 在副机选择一个不被实时云盘同步的本地目录，然后克隆仓库：
 
    ```powershell
-   git clone <你的私有仓库地址>
-   cd <仓库目录名>
+   git clone ssh://git@ssh.github.com:443/rinaikaku/my-knowledge-base.git
+   cd my-knowledge-base
    ```
 
 4. 在 Codex 中打开该克隆目录。Codex 的会话和缓存仍各自保留在本机；项目规则与知识文件来自此仓库。
@@ -53,12 +53,16 @@ git push
 
 ## 主机首次创建远端后的绑定命令
 
-在 GitHub 创建空的私有仓库后，于主机项目目录执行：
+主机远端已绑定为：
 
 ```powershell
-git remote add origin <你的私有仓库地址>
-git branch -M main
-git push -u origin main
+git remote -v
 ```
 
-随后副机才执行本指南中的 `git clone`。
+若重新绑定远端，使用：
+
+```powershell
+git remote set-url origin ssh://git@ssh.github.com:443/rinaikaku/my-knowledge-base.git
+```
+
+随后副机执行本指南中的 `git clone`。
