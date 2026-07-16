@@ -4,6 +4,8 @@
 !.env.example
 *.pem
 *.key
+*.pfx
+*.p12
 
 # Codex 与工具本地状态
 .codex/local/
@@ -19,3 +21,6 @@ Thumbs.db
 .venv/
 venv/
 node_modules/
+
+# 生成的交付物不作为跨电脑知识库同步内容
+outputs/
