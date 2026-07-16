@@ -1,0 +1,4 @@
+interface:
+  display_name: "04 适配性与一致性检验 Agent"
+  short_description: "High ROI consistency debug for critical proposal bugs"
+  default_prompt: "Use $consistency-debug-agent to find only P0/P1 data, terminology, constraint, and business-logic contradictions before delivery review."

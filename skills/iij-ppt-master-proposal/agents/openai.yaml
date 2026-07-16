@@ -1,0 +1,4 @@
+interface:
+  display_name: "IIJ PPT Master Proposal"
+  short_description: "IIJ red-white proposal decks via ppt-master"
+  default_prompt: "Use $iij-ppt-master-proposal to create an IIJ-style customer proposal deck from my source materials."

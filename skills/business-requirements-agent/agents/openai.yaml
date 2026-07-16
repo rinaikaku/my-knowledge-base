@@ -1,0 +1,4 @@
+interface:
+  display_name: "01 业务要件定义 Agent"
+  short_description: "用于提案和报告动手前定义受众目标价值限制与逻辑骨架"
+  default_prompt: "Use $business-requirements-agent to define the target, goal, value, constraints, and logic outline before creating a proposal, report, or ROI sheet."

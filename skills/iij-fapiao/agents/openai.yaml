@@ -1,0 +1,4 @@
+interface:
+  display_name: "IIJ 发票"
+  short_description: "按上月发票命名整理当月PDF，并输出月差统计报告"
+  default_prompt: "Use $iij-fapiao to rename this month invoice PDFs based on last month and produce monthly difference reports."

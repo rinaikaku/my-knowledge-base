@@ -1,0 +1,4 @@
+interface:
+  display_name: "05 业务闭环推演 Agent"
+  short_description: "Tests proposal closure from customer review perspective"
+  default_prompt: "Use $business-closure-review-agent to simulate a typical customer or executive review and identify up to three deal-critical closure questions."

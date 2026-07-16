@@ -1,0 +1,4 @@
+interface:
+  display_name: "03 行业知识装配 Agent"
+  short_description: "Adds sourced expert content to proposal structures"
+  default_prompt: "Use $knowledge-assembly-agent to assemble sourced industry, compliance, technical, competitor, or market content into a confirmed PPT, Word, or Excel blueprint."
