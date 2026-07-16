@@ -1,0 +1,394 @@
+// Copyright 2025 OfficeCLI (officecli.ai)
+// SPDX-License-Identifier: Apache-2.0
+
+using OfficeCli.Core;
+
+namespace OfficeCli.Handlers;
+
+public static partial class WordBatchEmitter
+{
+
+    private static List<DocumentNode> CollapseFieldChains(List<DocumentNode> children)
+    {
+        var result = new List<DocumentNode>();
+        for (int i = 0; i < children.Count; i++)
+        {
+            var c = children[i];
+            bool isBegin = c.Type == "fieldChar"
+                && c.Format.TryGetValue("fieldCharType", out var fct)
+                && string.Equals(fct?.ToString(), "begin", StringComparison.OrdinalIgnoreCase);
+            if (!isBegin)
+            {
+                result.Add(c);
+                continue;
+            }
+
+            // Walk forward to find instruction text and end marker.
+            // R10-bug7: track nesting depth so an inner field (e.g. DATE
+            // wrapped inside an outer IF's true/false branch) does NOT have
+            // its instrText flattened into the outer instruction string —
+            // that flattening silently merged the inner field's code into
+            // the outer IF's expression, destroyed the false-branch
+            // boundary, and produced an instruction the IF parser could
+            // not round-trip.
+            string instruction = "";
+            string display = "";
+            bool sawSeparate = false;
+            bool sawNestedField = false;
+            int end = -1;
+            int depth = 1;
+            for (int j = i + 1; j < children.Count; j++)
+            {
+                var k = children[j];
+                if (k.Type == "instrText")
+                {
+                    // Only the OUTERMOST instrText belongs in this field's
+                    // instruction. Inner instrText (depth > 1) is part of a
+                    // nested field whose collapse target is the outer
+                    // begin/end pair we're walking inside.
+                    if (depth == 1)
+                    {
+                        if (k.Format.TryGetValue("instruction", out var iv) && iv != null)
+                            instruction += iv.ToString();
+                        else if (!string.IsNullOrEmpty(k.Text))
+                            instruction += k.Text;
+                    }
+                }
+                else if (k.Type == "fieldChar"
+                    && k.Format.TryGetValue("fieldCharType", out var ft))
+                {
+                    var ftStr = ft?.ToString();
+                    if (string.Equals(ftStr, "begin", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Nested field opens. The outer field can no longer
+                        // round-trip through AddField (AddField rebuilds a
+                        // flat begin/instr/sep/display/end chain and has no
+                        // model for nested branches). Mark and keep
+                        // counting until the matching outer end.
+                        sawNestedField = true;
+                        depth++;
+                    }
+                    else if (string.Equals(ftStr, "separate", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (depth == 1) sawSeparate = true;
+                    }
+                    else if (string.Equals(ftStr, "end", StringComparison.OrdinalIgnoreCase))
+                    {
+                        depth--;
+                        if (depth == 0)
+                        {
+                            end = j;
+                            break;
+                        }
+                    }
+                }
+                else if ((k.Type == "run" || k.Type == "r") && depth == 1)
+                {
+                    // Cached display segments after fldChar(separate). Concatenate
+                    // their text — formatting on the display run is dropped (the
+                    // field renders fresh on replay). At depth>1 the run belongs
+                    // to the nested field's cached display and is consumed by
+                    // its own collapse pass after the outer field is rolled back.
+                    if (!string.IsNullOrEmpty(k.Text)) display += k.Text;
+                }
+            }
+            if (end < 0)
+            {
+                // R10-bug8: malformed field — fldChar(begin) with no matching
+                // end. The previous "fall back to passing through" path
+                // returned the bare fldChar(begin) node, which the run-list
+                // filter in EmitParagraph then silently dropped (fieldChar
+                // is not in the allowlist). Surface a synthetic field
+                // entry carrying the partial instruction so TryEmitFieldRun
+                // can attach an envelope warning instead. The cached
+                // display (any runs accumulated before we ran out of input)
+                // is preserved so the paragraph keeps its visible text.
+                var malformedSynth = new DocumentNode
+                {
+                    Path = c.Path,
+                    Type = "field",
+                    Text = display,
+                    Format = new Dictionary<string, object?>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        ["instruction"] = instruction.Trim(),
+                        ["_unmatchedFieldBegin"] = true,
+                    }
+                };
+                result.Add(malformedSynth);
+                continue;
+            }
+            if (sawNestedField)
+            {
+                // Nested-field branch: the AddField rebuild path cannot
+                // represent IF/REF/MERGEFIELD with embedded child fields.
+                // Round-trip through a raw-set passthrough so the nested
+                // structure survives byte-for-byte. The host paragraph's
+                // emit already creates the paragraph; the raw-set append
+                // is wired below in TryEmitFieldRun via the
+                // `_rawFieldSlice` Format hint. Synthesize a sentinel
+                // entry that the field-emit branch routes to raw-set
+                // instead of AddField.
+                var rawSynth = new DocumentNode
+                {
+                    Path = c.Path,
+                    Type = "field",
+                    Text = display,
+                    Format = new Dictionary<string, object?>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        ["instruction"] = instruction.Trim(),
+                        ["_nestedField"] = true,
+                        ["_fieldChildStart"] = i,
+                        ["_fieldChildEnd"] = end,
+                    }
+                };
+                result.Add(rawSynth);
+                i = end;
+                continue;
+            }
+            // R14-bug1+2: legacy form field — the begin run carries
+            // <w:ffData>, surfaced by Navigation as ffName/ffType/ffDefault/
+            // ffMaxLength/ffChecked/… on the fieldChar node. The plain `field`
+            // synth would drive BuildFieldAddProps through its default arm,
+            // emit `instr=FORMTEXT`, and AddField (via the formtext delegate
+            // arm) would rebuild a /formfield with NONE of the original
+            // ffData props (name, default, maxLength, items, helpText, …).
+            // Route to a `formfield` synth instead so TryEmitFieldRun emits
+            // `add formfield` carrying the full payload.
+            if (c.Format.TryGetValue("hasFormFieldData", out var hffd)
+                && hffd is bool hffdB && hffdB)
+            {
+                var ffSynth = new DocumentNode
+                {
+                    Path = c.Path,
+                    Type = "formfield",
+                    Text = display,
+                    Format = new Dictionary<string, object?>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        ["instruction"] = instruction.Trim()
+                    }
+                };
+                // Carry every ff* prop forward so TryEmitFormFieldRun can
+                // map them onto AddFormField's prop bag.
+                foreach (var (fk, fv) in c.Format)
+                {
+                    if (fv == null) continue;
+                    if (fk.StartsWith("ff", StringComparison.OrdinalIgnoreCase))
+                        ffSynth.Format[fk] = fv;
+                }
+                result.Add(ffSynth);
+                i = end;
+                continue;
+            }
+            var synth = new DocumentNode
+            {
+                Path = c.Path,
+                Type = "field",
+                Text = display,
+                Format = new Dictionary<string, object?>(StringComparer.OrdinalIgnoreCase)
+                {
+                    ["instruction"] = instruction.Trim()
+                }
+            };
+            // Source field has no <w:fldChar w:fldCharType="separate"/> — it's
+            // the begin+instr+end shape (Word recomputes the result on open).
+            // Flag this so EmitField on the field branch can pass `text=""`
+            // explicitly to AddField, which short-circuits AddField's default
+            // placeholder ("1" for PAGE etc.) and emits the same separator-
+            // less shape. Without this flag, the second dump surfaces a
+            // phantom `text="1"` key that the source never had.
+            if (!sawSeparate)
+                synth.Format["_noFieldSeparator"] = true;
+            // BUG-DUMP18-02: propagate hyperlink-scope hint from the begin
+            // run so the field-emit branch can target the hyperlink parent
+            // on replay.
+            if (c.Format.TryGetValue("_hyperlinkParent", out var hlp) && hlp != null)
+                synth.Format["_hyperlinkParent"] = hlp;
+            result.Add(synth);
+            i = end;
+        }
+        return result;
+    }
+
+    // Build the prop bag AddField consumes from a parsed field instruction.
+    // Returns null when the instruction is empty or its first token is not a
+    // known field code; the caller falls back to a plain-text run for the
+    // cached display value so the paragraph still renders.
+    private static Dictionary<string, string>? BuildFieldAddProps(string instruction, string display)
+    {
+        if (string.IsNullOrWhiteSpace(instruction)) return null;
+        var trimmed = instruction.Trim();
+        // First whitespace-separated token is the field code.
+        var firstSpace = trimmed.IndexOfAny(new[] { ' ', '\t' });
+        var code = (firstSpace < 0 ? trimmed : trimmed[..firstSpace]).ToUpperInvariant();
+        var rest = firstSpace < 0 ? "" : trimmed[(firstSpace + 1)..].Trim();
+
+        var props = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["fieldType"] = code
+        };
+        switch (code)
+        {
+            case "PAGE":
+            case "NUMPAGES":
+            case "AUTHOR":
+            case "TITLE":
+            case "SUBJECT":
+            case "FILENAME":
+            case "SECTION":
+            case "SECTIONPAGES":
+                break;
+            case "DATE":
+            case "TIME":
+            case "CREATEDATE":
+            case "SAVEDATE":
+            case "PRINTDATE":
+            {
+                // Preserve the `\@ "MMMM d, yyyy"` format switch so dump
+                // round-trips Word's locale-formatted date fields. Without
+                // this, BuildFieldAddProps dropped `rest` and replay
+                // produced a bare DATE field rendered in the default
+                // locale (BUG-X6-3). AddField consumes the value via
+                // --prop format=…
+                var fmtMatch = System.Text.RegularExpressions.Regex.Match(
+                    rest ?? "", "\\\\@\\s+\"([^\"]+)\"");
+                if (fmtMatch.Success)
+                    props["format"] = fmtMatch.Groups[1].Value;
+                break;
+            }
+            case "REF":
+            case "PAGEREF":
+            case "NOTEREF":
+            {
+                // First arg is the bookmark name (may be quoted).
+                var name = ExtractFirstArg(rest);
+                if (string.IsNullOrEmpty(name)) return null;
+                props["bookmarkName"] = name;
+                break;
+            }
+            case "SEQ":
+            {
+                var ident = ExtractFirstArg(rest);
+                if (string.IsNullOrEmpty(ident)) return null;
+                props["identifier"] = ident;
+                // BUG-DUMP17-01: preserve trailing switches (\* ARABIC, \r N,
+                // \n, \c, \h, \s …). Without this, dump→batch round-trips
+                // strip every SEQ formatting switch and replay produces a
+                // bare " SEQ Figure ".
+                var seqSw = ExtractTrailingSwitches(rest, ident);
+                if (!string.IsNullOrEmpty(seqSw)) props["switches"] = seqSw;
+                break;
+            }
+            case "MERGEFIELD":
+            {
+                var name = ExtractFirstArg(rest);
+                if (string.IsNullOrEmpty(name)) return null;
+                props["fieldName"] = name;
+                // BUG-DUMP17-02: preserve trailing switches (\* MERGEFORMAT,
+                // \b, \f, \v …). Same shape as the SEQ case above.
+                var mfSw = ExtractTrailingSwitches(rest, name);
+                if (!string.IsNullOrEmpty(mfSw)) props["switches"] = mfSw;
+                break;
+            }
+            case "HYPERLINK":
+            {
+                // BUG-DUMP15-02: HYPERLINK may carry any combination of a base
+                // URL, `\l "anchor"`, and `\o "tooltip"`. The previous code
+                // checked `\l` first and returned only the anchor, dropping
+                // the URL entirely; `\o` was never parsed. Parse all three
+                // independently so dump→batch round-trips preserve them.
+                // The first non-switch token (if any) is the base URL.
+                var restStr = rest ?? "";
+                if (!System.Text.RegularExpressions.Regex.IsMatch(restStr.TrimStart(), @"^\\"))
+                {
+                    var url = ExtractFirstArg(restStr);
+                    if (!string.IsNullOrEmpty(url)) props["url"] = url;
+                }
+                var anchorMatch = System.Text.RegularExpressions.Regex.Match(restStr, "\\\\l\\s+\"([^\"]+)\"");
+                if (anchorMatch.Success) props["anchor"] = anchorMatch.Groups[1].Value;
+                var tooltipMatch = System.Text.RegularExpressions.Regex.Match(restStr, "\\\\o\\s+\"([^\"]+)\"");
+                if (tooltipMatch.Success) props["tooltip"] = tooltipMatch.Groups[1].Value;
+                if (!props.ContainsKey("url") && !props.ContainsKey("anchor"))
+                    return null;
+                break;
+            }
+            default:
+                // BUG-DUMP7-05: AddField's switch has no case for `=`,
+                // numeric expression fields like `= PAGE - 1`, or any other
+                // unrecognised code. Emitting fieldType=<code> would make
+                // replay throw `Unknown field type '<code>'`. Drop the
+                // unhelpful fieldType and pass the full trimmed instruction
+                // through `instr` instead — AddField's raw-instruction
+                // fallback rebuilds the chain verbatim. Drops `fieldType`
+                // entirely so the caller doesn't reject the row up-front.
+                props.Remove("fieldType");
+                props["instr"] = trimmed;
+                break;
+        }
+        if (!string.IsNullOrEmpty(display))
+            props["text"] = display;
+        return props;
+    }
+
+    private static string ExtractFirstArg(string s)
+    {
+        if (string.IsNullOrEmpty(s)) return "";
+        var t = s.TrimStart();
+        if (t.StartsWith('"'))
+        {
+            var end = t.IndexOf('"', 1);
+            return end > 0 ? t[1..end] : "";
+        }
+        var spc = t.IndexOfAny(new[] { ' ', '\t' });
+        return spc < 0 ? t : t[..spc];
+    }
+
+    // Return the portion of `s` that follows the first arg (which
+    // ExtractFirstArg already returned), trimmed. Used by SEQ /
+    // MERGEFIELD field parsing to preserve trailing switches like
+    // `\* ARABIC \r N` or `\* MERGEFORMAT` so AddField can replay them
+    // verbatim. BUG-DUMP17-01 / BUG-DUMP17-02.
+    private static string ExtractTrailingSwitches(string? s, string firstArg)
+    {
+        if (string.IsNullOrEmpty(s) || string.IsNullOrEmpty(firstArg)) return "";
+        var t = s.TrimStart();
+        int consumed;
+        if (t.StartsWith('"'))
+        {
+            var end = t.IndexOf('"', 1);
+            if (end < 0) return "";
+            consumed = end + 1;
+        }
+        else
+        {
+            consumed = firstArg.Length;
+        }
+        return consumed >= t.Length ? "" : t[consumed..].Trim();
+    }
+
+    // Parse a TOC field instruction (` TOC \o "1-3" \h \u \z `) into the
+    // prop bag AddToc accepts. AddToc emits the canonical instruction so
+    // round-tripping the parsed props back through it lands at the same
+    // OOXML even when the source instruction had extra whitespace or
+    // switch ordering.
+    private static Dictionary<string, string> ParseTocInstruction(string instruction)
+    {
+        var props = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var lvl = System.Text.RegularExpressions.Regex.Match(instruction, "\\\\o\\s+\"([^\"]+)\"");
+        if (lvl.Success) props["levels"] = lvl.Groups[1].Value;
+        // \h = hyperlinks (default true on AddToc, but emit explicitly for clarity)
+        props["hyperlinks"] = System.Text.RegularExpressions.Regex.IsMatch(instruction, "\\\\h\\b")
+            ? "true" : "false";
+        // \z suppresses page numbers; absence means pageNumbers=true
+        props["pageNumbers"] = System.Text.RegularExpressions.Regex.IsMatch(instruction, "\\\\z\\b")
+            ? "false" : "true";
+        // BUG-X5-03: \t = custom-style→level mapping ("Style;level,..."),
+        // \b = bookmark scope. Capture the quoted argument so AddToc can
+        // round-trip them; otherwise custom TOC switches were silently
+        // dropped on dump.
+        var ct = System.Text.RegularExpressions.Regex.Match(instruction, "\\\\t\\s+\"([^\"]+)\"");
+        if (ct.Success) props["customStyles"] = ct.Groups[1].Value;
+        var cb = System.Text.RegularExpressions.Regex.Match(instruction, "\\\\b\\s+\"([^\"]+)\"");
+        if (cb.Success) props["bookmark"] = cb.Groups[1].Value;
+        return props;
+    }
+}
