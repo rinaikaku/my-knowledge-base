@@ -43,6 +43,44 @@ git push
 
 只提交知识、规则和非敏感项目文件。不要提交 `.env`、密钥、令牌、账号会话、Codex 缓存或本地数据库。
 
+## 主机同步项目文件前的强制检查
+
+主机从其他工作目录同步项目时，先在仓库根目录执行以下检查。以 IIJ Workspace 为例，当前已确认源目录是 `D:\IIJ-Workspace`，目标是 `projects/iij-workspace/`：
+
+```powershell
+$repo = "C:\Users\KAKU\Documents\Codex\2026-07-16\wo-de"
+$source = "D:\IIJ-Workspace"
+$target = "projects/iij-workspace"
+
+Get-ChildItem "$source\03_Proposal" -File
+git -C $repo status --short --untracked-files=all -- $target
+git -C $repo ls-files -- "$target/03_Proposal"
+git -C $repo check-ignore -v -- "$target/03_Proposal/AI_RAG_Customer_Proposal_Wording.md"
+git -C $repo remote -v
+```
+
+验收标准：源目录中存在预期文件；`git ls-files` 能列出预期文件；`git check-ignore -v` 对预期文件没有输出；`origin` 的 fetch 与 push 地址均为 `ssh://git@ssh.github.com:443/rinaikaku/my-knowledge-base.git`。任何一项不符合时，不得推送，应先修正源目录或同步范围。
+
+完成复制与提交后，再执行：
+
+```powershell
+git -C $repo diff --cached --check
+git -C $repo push
+git -C $repo ls-remote origin refs/heads/main
+```
+
+## 副机拉取后的验收
+
+副机每次拉取项目更新后，除 `git pull --rebase` 外，还应检查提交号和关键文件：
+
+```powershell
+git pull --rebase
+git log -1 --oneline
+git ls-files -- projects/iij-workspace/03_Proposal
+```
+
+如预期文件缺失，请反馈上述命令输出以及 `git remote -v`；不要根据截图或文件夹名称重新猜测源目录，也不要使用强制推送覆盖远端。
+
 ## 出现冲突时
 
 1. 不要使用 `git push --force`。
