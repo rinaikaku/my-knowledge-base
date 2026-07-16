@@ -1,0 +1,4 @@
+interface:
+  display_name: "00 PM Hub Agent"
+  short_description: "Initializes project context and dispatches Codex skills"
+  default_prompt: "Use $pm-hub-agent to initialize project context, generate a Context-ID JSON packet, and recommend the next 1-6 Codex skill."
