@@ -1,0 +1,4 @@
+interface:
+  display_name: "06 运用测试与视觉交付 Agent"
+  short_description: "Polishes visuals and business wording within templates"
+  default_prompt: "Use $visual-delivery-polish-agent to polish visuals, diagram dense text, and refine business wording within the provided template constraints."

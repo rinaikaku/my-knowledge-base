@@ -1,0 +1,4 @@
+interface:
+  display_name: "02 结构设计与数据建模 Agent"
+  short_description: "Builds PPT Word and Excel structure blueprints"
+  default_prompt: "Use $structure-data-modeling-agent to turn business requirements into a PPT, Word, or Excel structure blueprint."
